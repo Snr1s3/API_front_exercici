@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Cridem a l'endpoint de l'API fent un fetch
-    ______________________________________________
+    fetch('http://127.0.0.1:8000/alumne/list')
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error a la resposta del servidor");
@@ -9,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(data => {
             const alumnesTableBody = document.querySelector("#tablaAlumne tbody");
-            alumnesTableBody.innerHTML = ""; // Netejar la taula abans d'afegir res
+            alumnesTableBody.innerHTML = ""; 
             
-            // Iterar sobre los alumnos y agregarlos al DOM
             data.forEach(alumne => {
                 const row = document.createElement("tr");
 
@@ -19,11 +18,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 nomAluCell.textContent = alumne.NomAlumne;
                 row.appendChild(nomAluCell);
 
-                // Repetir per tots els altres camps restants que retorna l'endpoint
-                _____________________________________________
-
-                
-
+                const cicle= document.createElement("td");
+                cicle.textContent = alumne.Cicle;
+                row.appendChild(cicle);
+                const curs = document.createElement("td");
+                curs.textContent = alumne.Curs;
+                row.appendChild(curs);
+                const grup = document.createElement("td");
+                grup.textContent = alumne.Grup;
+                row.appendChild(grup);
+                const aula = document.createElement("td");
+                aula.textContent = alumne.DescAula;
+                row.appendChild(aula);
                 alumnesTableBody.appendChild(row);
             });
         })
