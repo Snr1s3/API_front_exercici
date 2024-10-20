@@ -20,7 +20,8 @@ def get_aula_by_desc(desc):
     except Exception as e:
         print(f"Error reading from database: {e}")
         return classID
-    
+
+#Funció per a retornar una aula per id
 def get_aula_id(desc):
     try:
         classID = None

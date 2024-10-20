@@ -15,11 +15,13 @@ import db_aules
 #Inicialitzem la nostra aplicació FastAPI
 app = FastAPI()
 
+# Defineix una llista d'orígens permesos per a les sol·licituds CORS.
 origins = [
     "http://localhost",
     "http://localhost:8000"
 ]
 
+#Configuració de CORS (Cross-Origin Resource Sharing).
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
@@ -128,6 +130,7 @@ async def create(alumne: AlumnC):
             "S’ha afegit correctemen"
         }
 
+#Endpoint per a carregar alumnes des d'un fitxer CSV
 @app.post("/alumne/loadAlumnes")
 async def load_alumnes(file: UploadFile = File(...)):
     try:

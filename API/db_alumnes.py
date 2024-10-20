@@ -5,6 +5,7 @@
 from client import db_client
 import db_aules
 
+#Funció per a retornar tots els alumnes amb la classe
 def read_alumnes(orderby=None, contain=None, skip=0, limit=None):
     try:
         conn = db_client()
@@ -24,6 +25,7 @@ def read_alumnes(orderby=None, contain=None, skip=0, limit=None):
     except Exception as e:
         print(f"Error reading from database: {e}")
         return []
+
 #Funció per a retornar tots els alumnes
 def read():
     try:
@@ -184,6 +186,7 @@ def get_highest_id_alumne():
     
     return highest_id
 
+#Funció per a retornar un alumne
 def get_alumne(nom_alumne: str, cicle: str, curs: str, grup: str):
     try:
         conn = db_client()
@@ -199,7 +202,8 @@ def get_alumne(nom_alumne: str, cicle: str, curs: str, grup: str):
     finally:
         cur.close()
         conn.close()
-    
+
+#Funció per a insertar un alumne
 def insert_alumne(nom_alumne: str, cicle: str, curs: str, grup: str, desc_aula: str):
     try:
         conn = db_client()
