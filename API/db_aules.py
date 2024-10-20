@@ -13,12 +13,10 @@ def get_aula_by_desc(desc):
         cur.execute("SELECT * FROM Aula WHERE DescAula = %s", (desc,))
         result = cur.fetchone()
         print("Fetched aula:", result)
-        if result:
-            classID = result[0]
         #print("Fetched alumne:", classID)
         cur.close()
         conn.close()
-        return classID
+        return result
     except Exception as e:
         print(f"Error reading from database: {e}")
         return classID
@@ -40,7 +38,7 @@ def get_aula_id(desc):
     except Exception as e:
         print(f"Error reading from database: {e}")
 
-#Funció per a crear un alumne i retornarlo
+#Funció per a crear una aula i retornarla
 def insert_aula(desc_aula: str, edifici: str, pis: str):
     try:
         conn = db_client()

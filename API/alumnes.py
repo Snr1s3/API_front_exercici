@@ -4,6 +4,21 @@
 # Importem la llibreria datetime
 from datetime import datetime
 
+#def alumne_schema(alumne):
+#    return {
+#        "IdAlumne": alumne[0],
+#        "IdAula": alumne[1],
+#        "NomAlumne": alumne[2], 
+#        "Cicle": alumne[3],
+#        "Curs": alumne[4],
+#        "Grup": alumne[5],
+#        "CreatedAt": alumne[6].strftime("%Y-%m-%d %H:%M:%S") if isinstance(alumne[6], datetime) else alumne[6],
+#        "UpdatedAt": alumne[7].strftime("%Y-%m-%d %H:%M:%S") if isinstance(alumne[7], datetime) else alumne[7]
+#    }
+
+def alumnes_schema(alumnes):
+    return [alumne_schema(alumne) for alumne in alumnes]
+
 # Funció per a retornar un alumne
 def alumne_schema(fetchAlumnes):
     return {
@@ -13,9 +28,6 @@ def alumne_schema(fetchAlumnes):
         "Grup": fetchAlumnes[3],
         "DescAula": fetchAlumnes[4]
     }
-
-def alumnes_schema(alumnes):
-    return [alumne_schema(alumne) for alumne in alumnes]
 
 # Funció per a retornar un alumne amb la classe
 def alumneAll_schema(alumne):

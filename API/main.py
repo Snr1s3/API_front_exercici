@@ -85,32 +85,24 @@ def read_root():
 #Endpoint per a la documentació
 @app.get("/docs")
 
-@app.post("/alumne/loadAlumnes")
+#Endpoint per a la llista d'alumnes
+#@app.get("/alumne", response_model=List[Alumn])
+#def read_alumnes():
+#    return alumnes.alumnes_schema(db_alumnes.read())
 
-async def load_alumnes(file: UploadFile = File(...)):
-    print ("HOla")
-    try:
-        print ("HOla")
-        content = await file.read()
-        csv_reader = csv.reader(io.StringIO(content.decode("utf-8")))
-        next(csv_reader)  # Saltar la cabecera
+#Endpoint per a mostrar un alumne per id
+#@app.get("/alumne/show/{id}", response_model=Alumn)
+#def read_alumnes_id(id: int):
+#    alumne = db_alumnes.read_id(id)
+#    if alumne is not None:
+#        return alumnes.alumne_schema(alumne)
+#    else:
+#        raise HTTPException(status_code=404, detail="Item not found")
 
-        for row in csv_reader:
-            desc_aula, edifici, pis, nom_alumne, cicle, curs, grup = row
-
-            # Verificar si el aula existe
-            aula = db_aules.get_aula_by_desc(desc_aula)
-            if not aula:
-                db_aules.insert_aula(desc_aula, edifici, pis)
-
-            # Verificar si el alumno existe
-            alumne = db_alumnes.get_alumne(nom_alumne, cicle, curs, grup)
-            if not alumne:
-                db_alumnes.insert_alumne(nom_alumne, cicle, curs, grup, desc_aula)
-
-        return {"message": "Alumnes loaded successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+#Endpoint per a la llista d'alumnes amb la seva aula
+@app.get("/alumne/listAll", response_model=List[AlumnClass])
+def read_all():
+    return alumnes.alumnesAll_schema(db_alumnes.read_AlumnClass())
 
 # Endpoint per a la llista d'alumnes amb paràmetres de consulta
 @app.get("/alumne/list", response_model=List[Alumn2])
@@ -122,25 +114,6 @@ def read_alumnes(
 ):
     result = db_alumnes.read_alumnes(orderby, contain, skip, limit)
     return alumnes.alumnes_schema(result)
-
-#Endpoint per a la llista d'alumnes
-@app.get("/alumne", response_model=List[Alumn])
-def read_alumnes():
-    return alumnes.alumnes_schema(db_alumnes.read())
-
-#Endpoint per a mostrar un alumne per id
-@app.get("/alumne/show/{id}", response_model=Alumn)
-def read_alumnes_id(id: int):
-    alumne = db_alumnes.read_id(id)
-    if alumne is not None:
-        return alumnes.alumne_schema(alumne)
-    else:
-        raise HTTPException(status_code=404, detail="Item not found")
-
-#Endpoint per a la llista d'alumnes amb la seva aula
-@app.get("/alumne/listAll", response_model=List[AlumnClass])
-def read_all():
-    return alumnes.alumnesAll_schema(db_alumnes.read_AlumnClass())
 
 #Endpoint per afegir un alumne
 @app.post("/alumne/add")
@@ -155,6 +128,34 @@ async def create(alumne: AlumnC):
             "S’ha afegit correctemen"
         }
 
+@app.post("/alumne/loadAlumnes")
+async def load_alumnes(file: UploadFile = File(...)):
+    try:
+        content = await file.read()
+        csv_reader = csv.reader(io.StringIO(content.decode("utf-8")))
+        next(csv_reader)
+
+        for row in csv_reader:
+            desc_aula, edifici, pis, nom_alumne, cicle, curs, grup = row
+
+            aula = db_aules.get_aula_by_desc(desc_aula)
+            if not aula:
+                db_aules.insert_aula(desc_aula, edifici, pis)
+                print("Aula created")
+            else:
+                print("Aula already exists")
+                
+            alumne = db_alumnes.get_alumne(nom_alumne, cicle, curs, grup)
+            if not alumne:
+                db_alumnes.insert_alumne(nom_alumne, cicle, curs, grup, desc_aula)
+                print("Alumne created")
+            else:
+                print("Alumne already exists")
+
+        return {"message": "Alumnes loaded successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 #Endpoint per a modificar un alumne
 @app.put("/alumne/update/{id}")
 def update_alumn(id: int, alumne: AlumnC):

@@ -27,6 +27,7 @@ def read_alumnes(orderby=None, contain=None, skip=0, limit=None):
 #Funció per a retornar tots els alumnes
 def read():
     try:
+        print("Hola")
         conn = db_client()
         cur = conn.cursor()
         cur.execute("SELECT * FROM Alumne")
@@ -187,10 +188,10 @@ def get_alumne(nom_alumne: str, cicle: str, curs: str, grup: str):
     try:
         conn = db_client()
         cur = conn.cursor()
-        query = "SELECT * FROM Alumne WHERE NomAlumne = ? AND Cicle = ? AND Curs = ? AND Grup = ?"
-        values = (nom_alumne, cicle, curs, grup)
+        query = "SELECT * FROM Alumne WHERE NomAlumne = %s AND Cicle = %s AND Curs = %s AND Grup = %s"
+        print ("goasl")
+        cur.execute(query, (nom_alumne, cicle, curs, grup,))
         print ("goal")
-        cur.execute(query, values)
         return cur.fetchone()
     except Exception as e:
         print(f"Error reading from database: {e}")
@@ -204,11 +205,11 @@ def insert_alumne(nom_alumne: str, cicle: str, curs: str, grup: str, desc_aula: 
         conn = db_client()
         cur = conn.cursor()
         aula_id = db_aules.get_aula_id(desc_aula)
+        print(aula_id)
         if aula_id is None:
             raise ValueError(f"Aula with DescAula {desc_aula} not found")
-        query = "INSERT INTO Alumne (NomAlumne, Cicle, Curs, Grup, IdAula) VALUES (?, ?, ?, ?, ?)"
-        values = (nom_alumne, cicle, curs, grup, aula_id)
-        cur.execute(query, values)
+        query = "INSERT INTO Alumne (NomAlumne, Cicle, Curs, Grup, IdAula) VALUES (%s, %s, %s, %s, %s)"
+        cur.execute(query, (nom_alumne, cicle, curs, grup, aula_id,))
         conn.commit()
     except Exception as e:
         print(f"Error inserting into database: {e}")
