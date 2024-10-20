@@ -21,12 +21,12 @@ Aquest projecte és una API desenvolupada amb **FastAPI** per gestionar informac
 1. http://127.0.0.1:8000/alumne/loadAlumnes    
 **Carrega alumnes des d'un fitxer CSV**   
 **Estat de la base de dades d'Alumne**  
-![Carrega alumnes des d'un fitxer CSV](./imagesDocs/abans.png)
+![Carrega alumnes des d'un fitxer CSV](./imagesDocs/abans.png)  
 **Estat de la base de dades d'Aula**   
-![Carrega alumnes des d'un fitxer CSV](./imagesDocs/abansaula.png)
-**Carrega del fitxer**   
-![Carrega alumnes des d'un fitxer CSV](./imagesDocs/load.png)
-**Canvis a la base de dades d'Alumne**   
-![Carrega alumnes des d'un fitxer CSV](./imagesDocs/despres.png)
-**Canvis a la base de dades d'Aula**   
-![Carrega alumnes des d'un fitxer CSV](./imagesDocs/despresaula.png)
+![Carrega alumnes des d'un fitxer CSV](./imagesDocs/abansaula.png)  
+**Carrega del fitxer**     
+![Carrega alumnes des d'un fitxer CSV](./imagesDocs/load.png)  
+**Canvis a la base de dades d'Alumne**    
+![Carrega alumnes des d'un fitxer CSV](./imagesDocs/despres.png)  
+**Canvis a la base de dades d'Aula**     
+![Carrega alumnes des d'un fitxer CSV](./imagesDocs/despresaula.png)  
