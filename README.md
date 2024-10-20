@@ -15,9 +15,9 @@ Aquest projecte és una API desenvolupada amb **FastAPI** per gestionar informac
 ## GET   
 1. http://127.0.0.1:8000/alumne/list    
 **Retorna una llista d'alumnes amb paràmetres de consulta**
-![Retorna una llista d'alumnes amb paràmetres de consulta](./imagesDocs/get.png)
-**Retorna una llista d'alumnes amb paràmetres de consulta a la web**
-![Retorna una llista d'alumnes amb paràmetres de consulta](./imagesDocs/web.png)
+![Retorna una llista d'alumnes amb paràmetres de consulta](./imagesDocs/get.png)  
+**Retorna una llista d'alumnes amb paràmetres de consulta a la web**   
+![Retorna una llista d'alumnes amb paràmetres de consulta](./imagesDocs/web.png)  
 
 ## POST     
 1. http://127.0.0.1:8000/alumne/loadAlumnes    
